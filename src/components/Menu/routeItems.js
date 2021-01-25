@@ -16,6 +16,10 @@ import {
   controle_ods,
   controle_phs,
   controle_sses,
+  polimento_etas,
+  tratamento_efluente_lagoas,
+  controle_coletas,
+  controle_vazaos,
 } from 'config/routes';
 
 const routes = [
@@ -53,6 +57,22 @@ const routes = [
   },
   {
     ...controle_sses,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...polimento_etas,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...tratamento_efluente_lagoas,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_coletas,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_vazaos,
     Icon: PlaylistAddCheckIcon,
   },
 ];

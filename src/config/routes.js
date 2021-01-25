@@ -51,3 +51,27 @@ export const controle_sses = {
   name: 'Controle de SS',
   root: 'controle-sses',
 };
+
+export const polimento_etas = {
+  path: '/polimento-etas',
+  name: 'Polimento ETA',
+  root: 'polimento-etas',
+};
+
+export const tratamento_efluente_lagoas = {
+  path: '/tratamento-efluente-lagoas',
+  name: 'Tratamento Efluente Lagoas',
+  root: 'tratamento-efluente-lagoas',
+};
+
+export const controle_coletas = {
+  path: '/controle-coletas',
+  name: 'Controle Coletas',
+  root: 'controle-coletas',
+};
+
+export const controle_vazaos = {
+  path: '/controle-vazaos',
+  name: 'Controle Vazão',
+  root: 'controle-vazaos',
+};

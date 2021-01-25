@@ -62,6 +62,26 @@ import ControleSseShow from 'pages/ControleSses/Show';
 import ControleSseNew from 'pages/ControleSses/New';
 import ControleSseEdit from 'pages/ControleSses/Edit';
 
+import PolimentoEtaList from 'pages/PolimentoEtas/List';
+import PolimentoEtaShow from 'pages/PolimentoEtas/Show';
+import PolimentoEtaNew from 'pages/PolimentoEtas/New';
+import PolimentoEtaEdit from 'pages/PolimentoEtas/Edit';
+
+import TratamentoEfluenteLagoaList from 'pages/TratamentoEfluenteLagoas/List';
+import TratamentoEfluenteLagoaShow from 'pages/TratamentoEfluenteLagoas/Show';
+import TratamentoEfluenteLagoaNew from 'pages/TratamentoEfluenteLagoas/New';
+import TratamentoEfluenteLagoaEdit from 'pages/TratamentoEfluenteLagoas/Edit';
+
+import ControleColetaList from 'pages/ControleColetas/List';
+import ControleColetaShow from 'pages/ControleColetas/Show';
+import ControleColetaNew from 'pages/ControleColetas/New';
+import ControleColetaEdit from 'pages/ControleColetas/Edit';
+
+import ControleVazaoList from 'pages/ControleVazaos/List';
+import ControleVazaoShow from 'pages/ControleVazaos/Show';
+import ControleVazaoNew from 'pages/ControleVazaos/New';
+import ControleVazaoEdit from 'pages/ControleVazaos/Edit';
+
 const useStyles = makeStyles((theme) => ({
   sidebar: {
     marginLeft: 280,
@@ -96,7 +116,6 @@ const Main = ({ user, empresa, local }) => {
   return (
     <Routes>
       <Route path="/" element={<UsuarioList />} />
-
 
       <Route path="/empresas" element={<EmpresaList />} />
       <Route path="/empresas/select" element={<EmpresaSelect />} />
@@ -145,6 +164,38 @@ const Main = ({ user, empresa, local }) => {
       <Route path="/controle-sses/new" element={<ControleSseNew />} />
       <Route path="/controle-sses/show/:id" element={<ControleSseShow />} />
       <Route path="/controle-sses/edit/:id" element={<ControleSseEdit />} />
+
+      <Route path="/polimento-etas" element={<PolimentoEtaList />} />
+      <Route path="/polimento-etas/new" element={<PolimentoEtaNew />} />
+      <Route path="/polimento-etas/show/:id" element={<PolimentoEtaShow />} />
+      <Route path="/polimento-etas/edit/:id" element={<PolimentoEtaEdit />} />
+
+      <Route
+        path="/tratamento-efluente-lagoas"
+        element={<TratamentoEfluenteLagoaList />}
+      />
+      <Route
+        path="/tratamento-efluente-lagoas/new"
+        element={<TratamentoEfluenteLagoaNew />}
+      />
+      <Route
+        path="/tratamento-efluente-lagoas/show/:id"
+        element={<TratamentoEfluenteLagoaShow />}
+      />
+      <Route
+        path="/tratamento-efluente-lagoas/edit/:id"
+        element={<TratamentoEfluenteLagoaEdit />}
+      />
+
+      <Route path="/controle-coletas" element={<ControleColetaList />} />
+      <Route path="/controle-coletas/new" element={<ControleColetaNew />} />
+      <Route path="/controle-coletas/show/:id" element={<ControleColetaShow />} />
+      <Route path="/controle-coletas/edit/:id" element={<ControleColetaEdit />} />
+
+      <Route path="/controle-vazaos" element={<ControleVazaoList />} />
+      <Route path="/controle-vazaos/new" element={<ControleVazaoNew />} />
+      <Route path="/controle-vazaos/show/:id" element={<ControleVazaoShow />} />
+      <Route path="/controle-vazaos/edit/:id" element={<ControleVazaoEdit />} />
 
       <Route path="/*" element={<NotFound />} />
     </Routes>
