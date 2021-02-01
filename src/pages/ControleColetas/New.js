@@ -39,7 +39,7 @@ const New = () => {
   const [status_coleta, setStatus_coleta] = useState('1');
   const [condicao_coleta, setCondicao_coleta] = useState('1');
 
-  const [error, setError] = useState({});
+  // const [error, setError] = useState({});
 
   const handleChangeStatusColeta = (event) => {
     setStatus_coleta(event.target.value);
@@ -71,7 +71,7 @@ const New = () => {
 
     const validation = await yupValidator(schema, dados);
 
-    setError(validation);
+    // setError(validation);
     if (isPresent(validation)) return;
 
     setLoading(true);
@@ -83,8 +83,9 @@ const New = () => {
       navigate(`/controle-coletas/show/${response.data.id}`);
     } catch (error) {
       setLoading(false);
-      const validation = handlingErros(error);
-      setError(validation);
+      handlingErros(error);
+      // const validation = handlingErros(error);
+      // setError(validation);
     }
   }
 
@@ -121,23 +122,41 @@ const New = () => {
                 value={status_coleta}
                 onChange={handleChangeStatusColeta}
               >
-                <FormControlLabel value="1" control={<Radio />} label="Realiazada" />
-                <FormControlLabel value="2" control={<Radio />} label="Adiada" />
+                <FormControlLabel
+                  value="1"
+                  control={<Radio />}
+                  label="Realiazada"
+                />
+                <FormControlLabel
+                  value="2"
+                  control={<Radio />}
+                  label="Adiada"
+                />
               </RadioGroup>
             </FormControl>
           </GridItem>
 
           <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
             <FormControl component="fieldset">
-              <FormLabel component="legend">Condição de Coleta (tempo e clima)</FormLabel>
+              <FormLabel component="legend">
+                Condição de Coleta (tempo e clima)
+              </FormLabel>
               <RadioGroup
                 aria-label="condicao_coleta"
                 name="condicao_coleta"
                 value={condicao_coleta}
                 onChange={handleChangeCondicaoColeta}
               >
-                <FormControlLabel value="1" control={<Radio />} label="Ensoralado" />
-                <FormControlLabel value="2" control={<Radio />} label="Chuvoso" />
+                <FormControlLabel
+                  value="1"
+                  control={<Radio />}
+                  label="Ensoralado"
+                />
+                <FormControlLabel
+                  value="2"
+                  control={<Radio />}
+                  label="Chuvoso"
+                />
                 <FormControlLabel value="3" control={<Radio />} label="Garoa" />
               </RadioGroup>
             </FormControl>

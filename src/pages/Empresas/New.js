@@ -91,7 +91,7 @@ const EmpresaNew = () => {
             />
           </GridItem>
 
-          <GridItem xs={12} sm={6} md={6} lg={6} xl={6}>
+          <GridItem xs={12} sm={8} md={8} lg={8} xl={8}>
             <InputText
               value={descricao}
               label="Descrição"

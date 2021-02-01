@@ -201,8 +201,8 @@ const UsuarioNew = () => {
               loading={loadingLocais}
               label="Locais"
               placeholder="Buscar"
-              onChange={(teste) => {
-                setSelectLocais(teste);
+              onChange={(local) => {
+                setSelectLocais(local);
               }}
             />
           </GridItem>

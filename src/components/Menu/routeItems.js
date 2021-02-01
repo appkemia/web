@@ -5,10 +5,13 @@ import PermDataSettingIcon from '@material-ui/icons/PermDataSetting';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import PoolIcon from '@material-ui/icons/Pool';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import AssistantPhotoIcon from '@material-ui/icons/AssistantPhoto';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import {
   users,
   empresas,
+  locais,
   tanques,
   equipamentos,
   etas,
@@ -20,6 +23,12 @@ import {
   tratamento_efluente_lagoas,
   controle_coletas,
   controle_vazaos,
+  controle_tanques,
+  controle_bombas,
+  equipamento_manutencaos,
+  controle_concentracao_cloros,
+  controle_pastilha_cloros,
+  configuracaos,
 } from 'config/routes';
 
 const routes = [
@@ -30,6 +39,14 @@ const routes = [
   {
     ...empresas,
     Icon: BusinessIcon,
+  },
+  {
+    ...configuracaos,
+    Icon: SettingsIcon,
+  },
+  {
+    ...locais,
+    Icon: AssistantPhotoIcon,
   },
   {
     ...tanques,
@@ -73,6 +90,26 @@ const routes = [
   },
   {
     ...controle_vazaos,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_tanques,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_bombas,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...equipamento_manutencaos,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_concentracao_cloros,
+    Icon: PlaylistAddCheckIcon,
+  },
+  {
+    ...controle_pastilha_cloros,
     Icon: PlaylistAddCheckIcon,
   },
 ];

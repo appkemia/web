@@ -40,7 +40,7 @@ const UsuarioEdit = () => {
   const [status_coleta, setStatus_coleta] = useState('');
   const [condicao_coleta, setCondicao_coleta] = useState('');
 
-  const [error, setError] = useState({});
+  // const [error, setError] = useState({});
 
   const handleChangeStatusColeta = (event) => {
     setStatus_coleta(event.target.value);
@@ -49,7 +49,6 @@ const UsuarioEdit = () => {
   const handleChangeCondicaoColeta = (event) => {
     setCondicao_coleta(event.target.value);
   };
-
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -73,7 +72,7 @@ const UsuarioEdit = () => {
 
     const validation = await yupValidator(schema, dados);
 
-    setError(validation);
+    // setError(validation);
     if (isPresent(validation)) return;
 
     setLoading(true);
@@ -85,8 +84,9 @@ const UsuarioEdit = () => {
       navigate(`/controle-coletas/show/${id}`);
     } catch (error) {
       setLoading(false);
-      const validation = handlingErros(error);
-      setError(validation);
+      handlingErros(error);
+      // const validation = handlingErros(error);
+      // setError(validation);
     }
   }
 

@@ -10,6 +10,19 @@ export const empresas = {
   root: 'empresas',
 };
 
+export const configuracaos = {
+  path: '/configuracaos',
+  name: 'Configurações',
+  root: 'configuracaos',
+};
+
+
+export const locais = {
+  path: '/locais',
+  name: 'Locais',
+  root: 'locais',
+};
+
 export const tanques = {
   path: '/tanques',
   name: 'Tanques',
@@ -74,4 +87,34 @@ export const controle_vazaos = {
   path: '/controle-vazaos',
   name: 'Controle Vazão',
   root: 'controle-vazaos',
+};
+
+export const controle_tanques = {
+  path: '/controle-tanques',
+  name: 'Controle Tanque',
+  root: 'controle-tanques',
+};
+
+export const controle_bombas = {
+  path: '/controle-bombas',
+  name: 'Controle Bomba',
+  root: 'controle-bombas',
+};
+
+export const equipamento_manutencaos = {
+  path: '/equipamento-manutencaos',
+  name: 'Equipamento Manutenção',
+  root: 'equipamento-manutencaos',
+};
+
+export const controle_concentracao_cloros = {
+  path: '/controle-concentracao-cloros',
+  name: 'Controle Concentração Cloro',
+  root: 'controle-concentracao-cloros',
+};
+
+export const controle_pastilha_cloros = {
+  path: '/controle-pastilha-cloros',
+  name: 'Controle Pastilha Cloro',
+  root: 'controle-pastilha-cloros',
 };

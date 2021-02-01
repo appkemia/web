@@ -20,7 +20,15 @@ import EmpresaNew from 'pages/Empresas/New';
 import EmpresaEdit from 'pages/Empresas/Edit';
 import EmpresaShow from 'pages/Empresas/Show';
 
+import ConfiguracaoList from 'pages/Configuracaos/List';
+import ConfiguracaoShow from 'pages/Configuracaos/Show';
+import ConfiguracaoEdit from 'pages/Configuracaos/Edit';
+
 import LocalSelect from 'pages/Locais/Select';
+import LocalList from 'pages/Locais/List';
+import LocalNew from 'pages/Locais/New';
+import LocalShow from 'pages/Locais/Show';
+import LocalEdit from 'pages/Locais/Edit';
 
 import UsuarioList from 'pages/Usuarios/List';
 import UsuarioShow from 'pages/Usuarios/Show';
@@ -82,6 +90,31 @@ import ControleVazaoShow from 'pages/ControleVazaos/Show';
 import ControleVazaoNew from 'pages/ControleVazaos/New';
 import ControleVazaoEdit from 'pages/ControleVazaos/Edit';
 
+import ControleTanqueList from 'pages/ControleTanques/List';
+import ControleTanqueShow from 'pages/ControleTanques/Show';
+import ControleTanqueNew from 'pages/ControleTanques/New';
+import ControleTanqueEdit from 'pages/ControleTanques/Edit';
+
+import ControleBombaList from 'pages/ControleBombas/List';
+import ControleBombaShow from 'pages/ControleBombas/Show';
+import ControleBombaNew from 'pages/ControleBombas/New';
+import ControleBombaEdit from 'pages/ControleBombas/Edit';
+
+import EquipamentoManutencaoList from 'pages/EquipamentoManutencaos/List';
+import EquipamentoManutencaoShow from 'pages/EquipamentoManutencaos/Show';
+import EquipamentoManutencaoNew from 'pages/EquipamentoManutencaos/New';
+import EquipamentoManutencaoEdit from 'pages/EquipamentoManutencaos/Edit';
+
+import ControleConcentracaoCloroList from 'pages/ControleConcentracaoCloros/List';
+import ControleConcentracaoCloroShow from 'pages/ControleConcentracaoCloros/Show';
+import ControleConcentracaoCloroNew from 'pages/ControleConcentracaoCloros/New';
+import ControleConcentracaoCloroEdit from 'pages/ControleConcentracaoCloros/Edit';
+
+import ControlePastilhaCloroList from 'pages/ControlePastilhaCloros/List';
+import ControlePastilhaCloroShow from 'pages/ControlePastilhaCloros/Show';
+import ControlePastilhaCloroNew from 'pages/ControlePastilhaCloros/New';
+import ControlePastilhaCloroEdit from 'pages/ControlePastilhaCloros/Edit';
+
 const useStyles = makeStyles((theme) => ({
   sidebar: {
     marginLeft: 280,
@@ -123,12 +156,20 @@ const Main = ({ user, empresa, local }) => {
       <Route path="/empresas/edit/:id" element={<EmpresaEdit />} />
       <Route path="/empresas/show/:id" element={<EmpresaShow />} />
 
+      <Route path="/configuracaos" element={<ConfiguracaoList />} />
+      <Route path="/configuracaos/show/:id" element={<ConfiguracaoShow />} />
+      <Route path="/configuracaos/edit/:id" element={<ConfiguracaoEdit />} />
+
       <Route path="/usuarios" element={<UsuarioList />} />
       <Route path="/usuarios/new" element={<UsuarioNew />} />
       <Route path="/usuarios/show/:id" element={<UsuarioShow />} />
       <Route path="/usuarios/edit/:id" element={<UsuarioEdit />} />
 
       <Route path="/locais/select" element={<LocalSelect />} />
+      <Route path="/locais" element={<LocalList />} />
+      <Route path="/locais/new" element={<LocalNew />} />
+      <Route path="/locais/show/:id" element={<LocalShow />} />
+      <Route path="/locais/edit/:id" element={<LocalEdit />} />
 
       <Route path="/tanques" element={<TanqueList />} />
       <Route path="/tanques/new" element={<TanqueNew />} />
@@ -189,13 +230,86 @@ const Main = ({ user, empresa, local }) => {
 
       <Route path="/controle-coletas" element={<ControleColetaList />} />
       <Route path="/controle-coletas/new" element={<ControleColetaNew />} />
-      <Route path="/controle-coletas/show/:id" element={<ControleColetaShow />} />
-      <Route path="/controle-coletas/edit/:id" element={<ControleColetaEdit />} />
+      <Route
+        path="/controle-coletas/show/:id"
+        element={<ControleColetaShow />}
+      />
+      <Route
+        path="/controle-coletas/edit/:id"
+        element={<ControleColetaEdit />}
+      />
 
       <Route path="/controle-vazaos" element={<ControleVazaoList />} />
       <Route path="/controle-vazaos/new" element={<ControleVazaoNew />} />
       <Route path="/controle-vazaos/show/:id" element={<ControleVazaoShow />} />
       <Route path="/controle-vazaos/edit/:id" element={<ControleVazaoEdit />} />
+
+      <Route path="/controle-tanques" element={<ControleTanqueList />} />
+      <Route path="/controle-tanques/new" element={<ControleTanqueNew />} />
+      <Route
+        path="/controle-tanques/show/:id"
+        element={<ControleTanqueShow />}
+      />
+      <Route
+        path="/controle-tanques/edit/:id"
+        element={<ControleTanqueEdit />}
+      />
+
+      <Route path="/controle-bombas" element={<ControleBombaList />} />
+      <Route path="/controle-bombas/new" element={<ControleBombaNew />} />
+      <Route path="/controle-bombas/show/:id" element={<ControleBombaShow />} />
+      <Route path="/controle-bombas/edit/:id" element={<ControleBombaEdit />} />
+
+      <Route
+        path="/equipamento-manutencaos"
+        element={<EquipamentoManutencaoList />}
+      />
+      <Route
+        path="/equipamento-manutencaos/new"
+        element={<EquipamentoManutencaoNew />}
+      />
+      <Route
+        path="/equipamento-manutencaos/show/:id"
+        element={<EquipamentoManutencaoShow />}
+      />
+      <Route
+        path="/equipamento-manutencaos/edit/:id"
+        element={<EquipamentoManutencaoEdit />}
+      />
+
+      <Route
+        path="/controle-concentracao-cloros"
+        element={<ControleConcentracaoCloroList />}
+      />
+      <Route
+        path="/controle-concentracao-cloros/new"
+        element={<ControleConcentracaoCloroNew />}
+      />
+      <Route
+        path="/controle-concentracao-cloros/show/:id"
+        element={<ControleConcentracaoCloroShow />}
+      />
+      <Route
+        path="/controle-concentracao-cloros/edit/:id"
+        element={<ControleConcentracaoCloroEdit />}
+      />
+
+      <Route
+        path="/controle-pastilha-cloros"
+        element={<ControlePastilhaCloroList />}
+      />
+      <Route
+        path="/controle-pastilha-cloros/new"
+        element={<ControlePastilhaCloroNew />}
+      />
+      <Route
+        path="/controle-pastilha-cloros/show/:id"
+        element={<ControlePastilhaCloroShow />}
+      />
+      <Route
+        path="/controle-pastilha-cloros/edit/:id"
+        element={<ControlePastilhaCloroEdit />}
+      />
 
       <Route path="/*" element={<NotFound />} />
     </Routes>

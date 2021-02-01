@@ -65,7 +65,8 @@ const NotFound = () => {
               textAlign: 'center',
             }}
           >
-            LAIS REGINA VOCÊ É MUITO BONITA
+            A página que você estava buscando não existe ou não está mais
+            disponível.
           </Typography>
           <Typography
             variant="h6"
@@ -74,9 +75,9 @@ const NotFound = () => {
               textAlign: 'center',
             }}
           >
-            Pagona nao entcatrasd
+            Voltar para a
             <Button onClick={() => navigate('/')} color="secondary">
-              Pagina inicial
+              Página inicial
             </Button>
           </Typography>
         </GridItem>
