@@ -17,6 +17,7 @@ import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
+import Can from 'contexts/Can';
 
 const Show = () => {
   const navigate = useNavigate();
@@ -61,12 +62,14 @@ const Show = () => {
         loading={loading}
       >
         <GridAction>
-          <Button
-            onClick={() => navigate(`/controle-ods/edit/${id}`)}
-            color="orange"
-          >
-            Editar
-          </Button>
+          <Can I="edit" a="ControleOds">
+            <Button
+              onClick={() => navigate(`/controle-ods/edit/${id}`)}
+              color="orange"
+            >
+              Editar
+            </Button>
+          </Can>
         </GridAction>
 
         <GridContainer>
@@ -77,11 +80,10 @@ const Show = () => {
           <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
             <InputShow label="Hora" value={dig(data, 'hora')} />
           </GridItem>
-
         </GridContainer>
 
         <GridContainer>
-        <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
+          <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
             <InputShow label="Bruto" value={dig(data, 'bruto')} />
           </GridItem>
           <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
@@ -94,12 +96,10 @@ const Show = () => {
           <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
             <InputShow label="Reator 3" value={dig(data, 'reator_3')} />
           </GridItem>
-
-
         </GridContainer>
 
         <GridContainer>
-        <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
+          <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
             <InputShow label="Tratado" value={dig(data, 'tratado')} />
           </GridItem>
           <GridItem xs={12} sm={9} md={9} lg={9} xl={9}>

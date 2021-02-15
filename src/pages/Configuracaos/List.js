@@ -19,6 +19,7 @@ import handlingErros from 'utils/handlingErros';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { empresa } = useAuth();
@@ -77,18 +78,22 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() => navigate(`/configuracaos/show/${row.id}`)}
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() => navigate(`/configuracaos/edit/${row.id}`)}
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
+                <Can I="show" a="Configuracaos">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() => navigate(`/configuracaos/show/${row.id}`)}
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="Configuracaos">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() => navigate(`/configuracaos/edit/${row.id}`)}
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.tipo}</TableCell>

@@ -30,6 +30,7 @@ import formatDate from 'utils/formatDate';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { local } = useAuth();
@@ -100,12 +101,14 @@ const List = () => {
       loading={loading}
     >
       <GridAction>
-        <Button
-          onClick={() => navigate('/controle-pastilha-cloros/new')}
-          color="blue"
-        >
-          Novo
-        </Button>
+        <Can I="new" a="ControlePastilhaCloros">
+          <Button
+            onClick={() => navigate('/controle-pastilha-cloros/new')}
+            color="blue"
+          >
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <GridContainer>
@@ -144,31 +147,37 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() =>
-                    navigate(`/controle-pastilha-cloros/show/${row.id}`)
-                  }
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() =>
-                    navigate(`/controle-pastilha-cloros/edit/${row.id}`)
-                  }
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip="Excluir"
-                  onClick={() => {
-                    setDeleteData(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="ControlePastilhaCloros">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() =>
+                      navigate(`/controle-pastilha-cloros/show/${row.id}`)
+                    }
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="ControlePastilhaCloros">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() =>
+                      navigate(`/controle-pastilha-cloros/edit/${row.id}`)
+                    }
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="ControlePastilhaCloros">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setDeleteData(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.dateFormat}</TableCell>

@@ -7,6 +7,8 @@ import PoolIcon from '@material-ui/icons/Pool';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import AssistantPhotoIcon from '@material-ui/icons/AssistantPhoto';
 import SettingsIcon from '@material-ui/icons/Settings';
+import EventIcon from '@material-ui/icons/Event';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import {
   users,
@@ -29,6 +31,8 @@ import {
   controle_concentracao_cloros,
   controle_pastilha_cloros,
   configuracaos,
+  tarefas,
+  notificaoes,
 } from 'config/routes';
 
 const routes = [
@@ -43,6 +47,14 @@ const routes = [
   {
     ...configuracaos,
     Icon: SettingsIcon,
+  },
+  {
+    ...tarefas,
+    Icon: EventIcon,
+  },
+  {
+    ...notificaoes,
+    Icon: NotificationsIcon,
   },
   {
     ...locais,

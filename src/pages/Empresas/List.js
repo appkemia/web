@@ -19,6 +19,7 @@ import IconButton from 'components/Button/IconButton';
 import handlingErros from 'utils/handlingErros';
 
 import api from 'services/api';
+import Can from 'contexts/Can';
 
 const EmpresaList = () => {
   const classesTable = tableStyles();
@@ -69,20 +70,22 @@ const EmpresaList = () => {
   }
 
   useEffect(() => {
-      getData();
+    getData();
   }, []);
 
   return (
     <CardContainer
       Icon={BusinessIcon}
       iconColor="blue"
-      title='Empresas'
+      title="Empresas"
       loading={loading}
     >
       <GridAction>
-        <Button onClick={() => navigate('/empresas/new')} color="blue">
-          Novo
-        </Button>
+        <Can I="new" a="Empresas">
+          <Button onClick={() => navigate('/empresas/new')} color="blue">
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <Table
@@ -101,27 +104,33 @@ const EmpresaList = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip={'Exibir'}
-                  onClick={() => navigate(`/empresas/show/${row.id}`)}
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip={'Editar'}
-                  onClick={() => navigate(`/empresas/edit/${row.id}`)}
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip='Excluir'
-                  onClick={() => {
-                    setEmpresaDelete(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="Empresas">
+                  <IconButton
+                    tooltip={'Exibir'}
+                    onClick={() => navigate(`/empresas/show/${row.id}`)}
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="Empresas">
+                  <IconButton
+                    tooltip={'Editar'}
+                    onClick={() => navigate(`/empresas/edit/${row.id}`)}
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="Empresas">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setEmpresaDelete(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.nome}</TableCell>
@@ -134,8 +143,8 @@ const EmpresaList = () => {
       <ModalDelete
         open={showModalDelete}
         loading={loadingDelete}
-        message='Deseja excluir?'
-        buttonText='Excluir'
+        message="Deseja excluir?"
+        buttonText="Excluir"
         onDelete={onDelete}
         onClose={() => {
           setShowModalDelete(false);

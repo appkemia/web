@@ -24,6 +24,7 @@ import handlingErros from 'utils/handlingErros';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { empresa } = useAuth();
@@ -90,9 +91,11 @@ const List = () => {
       loading={loading}
     >
       <GridAction>
-        <Button onClick={() => navigate('/locais/new')} color="blue">
-          Novo
-        </Button>
+        <Can I="new" a="Locais">
+          <Button onClick={() => navigate('/locais/new')} color="blue">
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <Table
@@ -111,27 +114,33 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() => navigate(`/locais/show/${row.id}`)}
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() => navigate(`/locais/edit/${row.id}`)}
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip="Excluir"
-                  onClick={() => {
-                    setDeleteData(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="Locais">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() => navigate(`/locais/show/${row.id}`)}
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="Locais">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() => navigate(`/locais/edit/${row.id}`)}
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="Locais">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setDeleteData(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.nome}</TableCell>

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import dig from 'object-dig';
-import startOfMonth  from 'date-fns/startOfMonth'
-import endOfMonth  from 'date-fns/endOfMonth'
+import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
 
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
@@ -30,6 +30,7 @@ import formatDate from 'utils/formatDate';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { local } = useAuth();
@@ -71,7 +72,7 @@ const List = () => {
         let query = {
           localId: dig(local, 'id'),
           startDate: formatDate(startDate, 'yyyy-MM-dd'),
-          endDate: formatDate(endDate, 'yyyy-MM-dd')
+          endDate: formatDate(endDate, 'yyyy-MM-dd'),
         };
 
         const params = toQueryString(query);
@@ -100,9 +101,14 @@ const List = () => {
       loading={loading}
     >
       <GridAction>
-        <Button onClick={() => navigate('/tratamento-efluente-lagoas/new')} color="blue">
-          Novo
-        </Button>
+        <Can I="new" a="TratamentoEfluenteLagoas">
+          <Button
+            onClick={() => navigate('/tratamento-efluente-lagoas/new')}
+            color="blue"
+          >
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <GridContainer>
@@ -140,27 +146,37 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() => navigate(`/tratamento-efluente-lagoas/show/${row.id}`)}
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() => navigate(`/tratamento-efluente-lagoas/edit/${row.id}`)}
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip="Excluir"
-                  onClick={() => {
-                    setDeleteData(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="TratamentoEfluenteLagoas">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() =>
+                      navigate(`/tratamento-efluente-lagoas/show/${row.id}`)
+                    }
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="TratamentoEfluenteLagoas">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() =>
+                      navigate(`/tratamento-efluente-lagoas/edit/${row.id}`)
+                    }
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="TratamentoEfluenteLagoas">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setDeleteData(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.dateFormat}</TableCell>

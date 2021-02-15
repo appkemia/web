@@ -16,6 +16,17 @@ export const configuracaos = {
   root: 'configuracaos',
 };
 
+export const tarefas = {
+  path: '/tarefas',
+  name: 'Tarefas',
+  root: 'tarefas',
+};
+
+export const notificaoes = {
+  path: '/notificaoes',
+  name: 'Notificações',
+  root: 'notificaoes',
+};
 
 export const locais = {
   path: '/locais',

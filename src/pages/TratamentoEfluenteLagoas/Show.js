@@ -17,6 +17,7 @@ import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
+import Can from 'contexts/Can';
 
 const Show = () => {
   const navigate = useNavigate();
@@ -63,12 +64,14 @@ const Show = () => {
         loading={loading}
       >
         <GridAction>
-          <Button
-            onClick={() => navigate(`/tratamento-efluente-lagoas/edit/${id}`)}
-            color="orange"
-          >
-            Editar
-          </Button>
+          <Can I="edit" a="TratamentoEfluenteLagoas">
+            <Button
+              onClick={() => navigate(`/tratamento-efluente-lagoas/edit/${id}`)}
+              color="orange"
+            >
+              Editar
+            </Button>
+          </Can>
         </GridAction>
 
         <GridContainer>
@@ -134,7 +137,10 @@ const Show = () => {
           </GridItem>
 
           <GridItem xs={12} sm={3} md={3} lg={3} xl={3}>
-            <InputShow label="Observação Geral" value={dig(data, 'observacao_geral')} />
+            <InputShow
+              label="Observação Geral"
+              value={dig(data, 'observacao_geral')}
+            />
           </GridItem>
         </GridContainer>
       </CardContainer>

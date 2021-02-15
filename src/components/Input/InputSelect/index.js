@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import useStyles from './styles';
 
-const InputSelect = ({ options, placeholder, value, name, onChange, label, required, multiple, error, helperText }) => {
+const InputSelect = ({ options, placeholder, value, name, onChange, label, required, multiple, error, helperText, disabled }) => {
   const classes = useStyles();
 
   return (
@@ -14,6 +14,7 @@ const InputSelect = ({ options, placeholder, value, name, onChange, label, requi
       multiple={multiple}
       getOptionLabel={(option) => option[name]}
       openOnFocus
+      disabled={disabled}
       value={value}
       onChange={(event, newValue) => {
         onChange(newValue);
@@ -28,6 +29,7 @@ const InputSelect = ({ options, placeholder, value, name, onChange, label, requi
           placeholder={placeholder == null ? 'Selecione' : placeholder}
           label={label}
           required={required}
+
           error={error}
           helperText={helperText}
           InputLabelProps={{

@@ -5,7 +5,7 @@ import dig from 'object-dig';
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 
-import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import EventIcon from '@material-ui/icons/Event';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -50,7 +50,7 @@ const List = () => {
     setLoadingDelete(true);
 
     try {
-      await api.delete(`/controle-coletas/${deleteData.id}`, {});
+      await api.delete(`/tarefas/${deleteData.id}`, {});
 
       const newData = data.filter((p) => p.id !== deleteData.id);
       setDeleteData(null);
@@ -76,7 +76,7 @@ const List = () => {
         };
 
         const params = toQueryString(query);
-        const response = await api.get(`/controle-coletas${params}`);
+        const response = await api.get(`/tarefas${params}`);
         setLoading(false);
         const { data } = response;
         setData(data);
@@ -95,17 +95,14 @@ const List = () => {
 
   return (
     <CardContainer
-      Icon={PlaylistAddCheckIcon}
+      Icon={EventIcon}
       iconColor="blue"
-      title="Controle Coletas"
+      title="Tarefas"
       loading={loading}
     >
       <GridAction>
-        <Can I="new" a="ControleColetas">
-          <Button
-            onClick={() => navigate('/controle-coletas/new')}
-            color="blue"
-          >
+        <Can I="new" a="Tarefas">
+          <Button onClick={() => navigate('/tarefas/new')} color="blue">
             Novo
           </Button>
         </Can>
@@ -138,12 +135,8 @@ const List = () => {
             <TableCell className={classesTable.cell}>Ações</TableCell>
             <TableCell className={classesTable.cell}>Código</TableCell>
             <TableCell className={classesTable.cell}>Data</TableCell>
-            <TableCell className={classesTable.cell}>
-              Status da Coleta
-            </TableCell>
-            <TableCell className={classesTable.cell}>
-              Condição da Coleta
-            </TableCell>
+            <TableCell className={classesTable.cell}>Atividade</TableCell>
+            <TableCell className={classesTable.cell}>Operador</TableCell>
           </>
         }
       >
@@ -151,23 +144,23 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <Can I="show" a="ControleColetas">
+                <Can I="show" a="Tarefas">
                   <IconButton
                     tooltip="Exibir"
-                    onClick={() => navigate(`/controle-coletas/show/${row.id}`)}
+                    onClick={() => navigate(`/tarefas/show/${row.id}`)}
                     Icon={RemoveRedEyeIcon}
                     iconColor="green"
                   />
                 </Can>
-                <Can I="edit" a="ControleColetas">
+                <Can I="edit" a="Tarefas">
                   <IconButton
                     tooltip="Editar"
-                    onClick={() => navigate(`/controle-coletas/edit/${row.id}`)}
+                    onClick={() => navigate(`/tarefas/edit/${row.id}`)}
                     Icon={EditIcon}
                     iconColor="orange"
                   />
                 </Can>
-                <Can I="delete" a="ControleColetas">
+                <Can I="delete" a="Tarefas">
                   <IconButton
                     tooltip="Excluir"
                     onClick={() => {
@@ -180,17 +173,9 @@ const List = () => {
                 </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
-              <TableCell>{row.dateFormat}</TableCell>
-              <TableCell>
-                {row.status_coleta === 1 ? 'Realizada' : 'Adiada'}
-              </TableCell>
-              <TableCell>
-                {row.condicao_coleta === 1
-                  ? 'Ensoralada'
-                  : row.condicao_coleta === 2
-                  ? 'Chuvoso'
-                  : 'Garoa'}
-              </TableCell>
+              <TableCell>{formatDate(row.data, 'dd/MM/yyyy')}</TableCell>
+              <TableCell>{row.atividade}</TableCell>
+              <TableCell>{dig(row, 'user', 'nome')}</TableCell>
             </TableRow>
           );
         })}

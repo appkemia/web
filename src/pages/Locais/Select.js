@@ -9,11 +9,13 @@ import GridItem from 'components/Grid/GridItem';
 import GridContainer from 'components/Grid/GridContainer';
 import Button from 'components/Button/Button';
 import InputSelect from 'components/Input/InputSelect';
+import GridAction from 'components/Grid/GridAction';
 
 import isBlank from 'utils/isBlank';
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const LocalSelect = () => {
   const navigate = useNavigate();
@@ -57,6 +59,14 @@ const LocalSelect = () => {
         title="Selecione o Local"
         loading={loading}
       >
+        <GridAction>
+          <Can I="new" a="Locais">
+            <Button onClick={() => navigate('/locais/new')} color="blue">
+              Novo
+            </Button>
+          </Can>
+        </GridAction>
+
         <GridContainer justify="center" alignItems="center">
           <GridItem xs={12} sm={6} md={6} lg={6} xl={6}>
             <InputSelect

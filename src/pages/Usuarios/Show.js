@@ -17,6 +17,7 @@ import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
+import Can from 'contexts/Can';
 
 const UsuarioShow = () => {
   const navigate = useNavigate();
@@ -58,12 +59,14 @@ const UsuarioShow = () => {
         loading={loading}
       >
         <GridAction>
-          <Button
-            onClick={() => navigate(`/usuarios/edit/${id}`)}
-            color="orange"
-          >
-            Editar
-          </Button>
+          <Can I="edit" a="Usuarios">
+            <Button
+              onClick={() => navigate(`/usuarios/edit/${id}`)}
+              color="orange"
+            >
+              Editar
+            </Button>
+          </Can>
         </GridAction>
 
         <GridContainer>

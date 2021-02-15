@@ -7,7 +7,6 @@ import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import InputLabel from '@material-ui/core/InputLabel';
 
 import CardContainer from 'components/Card/CardContainer';
 import GridItem from 'components/Grid/GridItem';
@@ -17,6 +16,7 @@ import Button from 'components/Button/Button';
 import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
+import formatDate from 'utils/formatDate';
 import handlingErros from 'utils/handlingErros';
 import Can from 'contexts/Can';
 
@@ -31,7 +31,7 @@ const Show = () => {
       setLoading(true);
 
       try {
-        const response = await api.get(`/locais/${id}`);
+        const response = await api.get(`/tarefas/${id}`);
         setLoading(false);
         const { data } = response;
         setData(data);
@@ -48,21 +48,21 @@ const Show = () => {
   return (
     <>
       <Breadcrumbs maxItems={4} aria-label="breadcrumb">
-        <Chip label="Locais" onClick={() => navigate('/locais')} />
-        <Typography color="textPrimary">Visualizando Local</Typography>
+        <Chip label="Tarefa" onClick={() => navigate('/tarefas')} />
+        <Typography color="textPrimary">Visualizando Tarefa</Typography>
         );
       </Breadcrumbs>
 
       <CardContainer
         Icon={PlaylistAddCheckIcon}
         iconColor="blue"
-        title="Visualizando Local"
+        title="Visualizando Tarefa"
         loading={loading}
       >
         <GridAction>
-          <Can I="edit" a="Locais">
+          <Can I="edit" a="Tarefas">
             <Button
-              onClick={() => navigate(`/locais/edit/${id}`)}
+              onClick={() => navigate(`/tarefas/edit/${id}`)}
               color="orange"
             >
               Editar
@@ -72,32 +72,24 @@ const Show = () => {
 
         <GridContainer>
           <GridItem xs={12} sm={4} md={4} lg={4} xl={4}>
-            <InputShow label="nome" value={dig(data, 'nome')} />
+            <InputShow
+              label="Data"
+              value={formatDate(dig(data, 'data'), 'dd/MM/yyyy')}
+            />
           </GridItem>
 
-          <GridItem xs={12} sm={8} md={8} lg={8} xl={8}>
-            <InputShow label="Descricao" value={dig(data, 'descricao')} />
-          </GridItem>
-        </GridContainer>
-
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
-            <InputShow label="Endereço" value={dig(data, 'endereco')} />
+          <GridItem xs={12} sm={4} md={4} lg={4} xl={4}>
+            <InputShow label="Local" value={dig(data, 'local', 'nome')} />
           </GridItem>
         </GridContainer>
 
         <GridContainer>
-          <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
-            <InputLabel style={{ marginBottom: 10 }}>Usuários</InputLabel>
-            {data.users &&
-              data.users.map((item) => (
-                <Chip
-                  style={{ marginRight: 5 }}
-                  key={item.id}
-                  label={item.nome}
-                  color="primary"
-                />
-              ))}
+          <GridItem xs={12} sm={4} md={4} lg={4} xl={4}>
+            <InputShow label="Operador" value={dig(data, 'user', 'nome')} />
+          </GridItem>
+
+          <GridItem xs={12} sm={4} md={4} lg={4} xl={4}>
+            <InputShow label="Atividade" value={dig(data, 'atividade')} />
           </GridItem>
         </GridContainer>
       </CardContainer>

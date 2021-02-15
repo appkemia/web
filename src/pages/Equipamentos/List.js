@@ -24,6 +24,7 @@ import handlingErros from 'utils/handlingErros';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { local } = useAuth();
@@ -37,7 +38,6 @@ const List = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [deleteData, setDeleteData] = useState(null);
   const [showModalDelete, setShowModalDelete] = useState(false);
-
 
   async function onDelete() {
     setLoadingDelete(true);
@@ -93,9 +93,11 @@ const List = () => {
       loading={loading}
     >
       <GridAction>
-        <Button onClick={() => navigate('/equipamentos/new')} color="blue">
-          Novo
-        </Button>
+        <Can I="new" a="Equipamentos">
+          <Button onClick={() => navigate('/equipamentos/new')} color="blue">
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <Table
@@ -114,27 +116,33 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() => navigate(`/equipamentos/show/${row.id}`)}
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() => navigate(`/equipamentos/edit/${row.id}`)}
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip="Excluir"
-                  onClick={() => {
-                    setDeleteData(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="Equipamentos">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() => navigate(`/equipamentos/show/${row.id}`)}
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="Equipamentos">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() => navigate(`/equipamentos/edit/${row.id}`)}
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="Equipamentos">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setDeleteData(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.nome}</TableCell>
@@ -147,8 +155,8 @@ const List = () => {
       <ModalDelete
         open={showModalDelete}
         loading={loadingDelete}
-        message='Realmente deseja excluir este dado?'
-        buttonText='Excluir'
+        message="Realmente deseja excluir este dado?"
+        buttonText="Excluir"
         onDelete={onDelete}
         onClose={() => {
           setShowModalDelete(false);

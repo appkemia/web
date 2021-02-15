@@ -16,6 +16,7 @@ import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
+import Can from 'contexts/Can';
 
 const EmpresaShow = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const EmpresaShow = () => {
   return (
     <>
       <Breadcrumbs maxItems={4} aria-label="breadcrumb">
-        <Chip label='Empresas' onClick={() => navigate('/empresas')} />
+        <Chip label="Empresas" onClick={() => navigate('/empresas')} />
         <Typography color="textPrimary">Visualizando empresa</Typography>
         );
       </Breadcrumbs>
@@ -53,16 +54,18 @@ const EmpresaShow = () => {
       <CardContainer
         Icon={PersonIcon}
         iconColor="blue"
-        title='Visualizando empresa'
+        title="Visualizando empresa"
         loading={loading}
       >
         <GridAction>
-          <Button
-            onClick={() => navigate(`/empresas/edit/${id}`)}
-            color="orange"
-          >
-            Editar
-          </Button>
+          <Can I="edit" a="Empresas">
+            <Button
+              onClick={() => navigate(`/empresas/edit/${id}`)}
+              color="orange"
+            >
+              Editar
+            </Button>
+          </Can>
         </GridAction>
 
         <GridContainer>

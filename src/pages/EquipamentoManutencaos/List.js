@@ -30,6 +30,7 @@ import formatDate from 'utils/formatDate';
 
 import api from 'services/api';
 import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 const List = () => {
   const { local } = useAuth();
@@ -100,12 +101,14 @@ const List = () => {
       loading={loading}
     >
       <GridAction>
-        <Button
-          onClick={() => navigate('/equipamento-manutencaos/new')}
-          color="blue"
-        >
-          Novo
-        </Button>
+        <Can I="new" a="EquipamentoManutencaos">
+          <Button
+            onClick={() => navigate('/equipamento-manutencaos/new')}
+            color="blue"
+          >
+            Novo
+          </Button>
+        </Can>
       </GridAction>
 
       <GridContainer>
@@ -144,31 +147,37 @@ const List = () => {
           return (
             <TableRow key={row.id} hover className={classesTable.row}>
               <TableCell>
-                <IconButton
-                  tooltip="Exibir"
-                  onClick={() =>
-                    navigate(`/equipamento-manutencaos/show/${row.id}`)
-                  }
-                  Icon={RemoveRedEyeIcon}
-                  iconColor="green"
-                />
-                <IconButton
-                  tooltip="Editar"
-                  onClick={() =>
-                    navigate(`/equipamento-manutencaos/edit/${row.id}`)
-                  }
-                  Icon={EditIcon}
-                  iconColor="orange"
-                />
-                <IconButton
-                  tooltip="Excluir"
-                  onClick={() => {
-                    setDeleteData(row);
-                    setShowModalDelete(true);
-                  }}
-                  Icon={DeleteIcon}
-                  iconColor="red"
-                />
+                <Can I="show" a="EquipamentoManutencaos">
+                  <IconButton
+                    tooltip="Exibir"
+                    onClick={() =>
+                      navigate(`/equipamento-manutencaos/show/${row.id}`)
+                    }
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Can>
+                <Can I="edit" a="EquipamentoManutencaos">
+                  <IconButton
+                    tooltip="Editar"
+                    onClick={() =>
+                      navigate(`/equipamento-manutencaos/edit/${row.id}`)
+                    }
+                    Icon={EditIcon}
+                    iconColor="orange"
+                  />
+                </Can>
+                <Can I="delete" a="EquipamentoManutencaos">
+                  <IconButton
+                    tooltip="Excluir"
+                    onClick={() => {
+                      setDeleteData(row);
+                      setShowModalDelete(true);
+                    }}
+                    Icon={DeleteIcon}
+                    iconColor="red"
+                  />
+                </Can>
               </TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.saidaFormat}</TableCell>

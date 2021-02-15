@@ -18,6 +18,7 @@ import GridAction from 'components/Grid/GridAction';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
+import Can from 'contexts/Can';
 
 const Show = () => {
   const navigate = useNavigate();
@@ -46,7 +47,6 @@ const Show = () => {
         setIs_polimero(data.is_polimero);
         setIs_hipoclorito(data.is_hipoclorito);
         setIs_observacao(data.is_observacao);
-
       } catch (error) {
         setLoading(false);
         setData([]);
@@ -72,9 +72,11 @@ const Show = () => {
         loading={loading}
       >
         <GridAction>
-          <Button onClick={() => navigate(`/etas/edit/${id}`)} color="orange">
-            Editar
-          </Button>
+          <Can I="edit" a="Etas">
+            <Button onClick={() => navigate(`/etas/edit/${id}`)} color="orange">
+              Editar
+            </Button>
+          </Can>
         </GridAction>
 
         <GridContainer>
@@ -89,28 +91,16 @@ const Show = () => {
 
         <GridContainer>
           <GridItem xs={12} sm={4} md={4} lg={4} xl={4}>
-            <InputCheckBox
-              disabled
-              value={is_vazao}
-              label="Vazão"
-            />
+            <InputCheckBox disabled value={is_vazao} label="Vazão" />
             <InputCheckBox disabled value={is_ph} label="pH" />
             <InputCheckBox disabled value={is_pac} label="% PAC" />
-            <InputCheckBox
-              disabled
-              value={is_polimero}
-              label="% Polímero"
-            />
+            <InputCheckBox disabled value={is_polimero} label="% Polímero" />
             <InputCheckBox
               disabled
               value={is_hipoclorito}
               label="% Hipoclorito"
             />
-            <InputCheckBox
-              disabled
-              value={is_observacao}
-              label="Observações"
-            />
+            <InputCheckBox disabled value={is_observacao} label="Observações" />
           </GridItem>
         </GridContainer>
       </CardContainer>
