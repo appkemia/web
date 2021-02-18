@@ -9,6 +9,7 @@ import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import CardContainer from 'components/Card/CardContainer';
 import GridItem from 'components/Grid/GridItem';
@@ -18,6 +19,7 @@ import Button from 'components/Button/Button';
 import GridContainerFooter from 'components/Grid/GridContainerFooter';
 import InputDate from 'components/Input/InputDate';
 import InputTime from 'components/Input/InputTime';
+import InputFile from 'components/Input/InputFile';
 
 import isPresent from 'utils/isPresent';
 import api from 'services/api';
@@ -41,12 +43,15 @@ const New = () => {
   const [tratado, setTratado] = useState('');
   const [acao_corretiva, setAcao_corretiva] = useState('');
 
+  const [efluente_bruto, setEfluente_bruto] = useState(null);
+  const [efluente_tratado, setEfluente_tratado] = useState(null);
+
   const [error, setError] = useState({});
 
   async function onSubmit(event) {
     event.preventDefault();
 
-    const dados = {
+    const body = {
       data: formatDate(data, 'yyyy-MM-dd'),
       hora: formatDate(hora, 'HH:mm:ss'),
       bruto,
@@ -65,13 +70,29 @@ const New = () => {
       reator_2: Yup.string().required('Por favor digite o Reator 2'),
       reator_3: Yup.string().required('Por favor digite o Reator 3'),
       tratado: Yup.string().required('Por favor digite o Tratado'),
-      acao_corretiva: Yup.string().required('Por favor digite o Ação Corretiva'),
+      acao_corretiva: Yup.string().required(
+        'Por favor digite o Ação Corretiva'
+      ),
     });
 
-    const validation = await yupValidator(schema, dados);
+    const validation = await yupValidator(schema, body);
 
     setError(validation);
     if (isPresent(validation)) return;
+
+    let dados = new FormData();
+
+    Object.keys(body).forEach((key) => {
+      dados.append(key, body[key]);
+    });
+
+    if (isPresent(efluente_bruto)) {
+      dados.append('efluente_bruto', efluente_bruto[0]);
+    }
+
+    if (isPresent(efluente_tratado)) {
+      dados.append('efluente_tratado', efluente_tratado[0]);
+    }
 
     setLoading(true);
     try {
@@ -119,7 +140,7 @@ const New = () => {
             <InputText
               value={bruto}
               label="Bruto"
-              type='number'
+              type="number"
               error={isPresent(error.bruto)}
               helperText={error.bruto}
               required
@@ -130,7 +151,7 @@ const New = () => {
             <InputText
               value={reator_1}
               label="Reator 1"
-              type='number'
+              type="number"
               error={isPresent(error.reator_1)}
               helperText={error.reator_1}
               required
@@ -141,7 +162,7 @@ const New = () => {
             <InputText
               value={reator_2}
               label="Reator 2"
-              type='number'
+              type="number"
               error={isPresent(error.reator_2)}
               helperText={error.reator_2}
               required
@@ -152,7 +173,7 @@ const New = () => {
             <InputText
               value={reator_3}
               label="Reator 3"
-              type='number'
+              type="number"
               error={isPresent(error.reator_3)}
               helperText={error.reator_3}
               required
@@ -166,7 +187,7 @@ const New = () => {
             <InputText
               value={tratado}
               label="Tratado"
-              type='number'
+              type="number"
               error={isPresent(error.tratado)}
               helperText={error.tratado}
               required
@@ -181,6 +202,30 @@ const New = () => {
               helperText={error.acao_corretiva}
               required
               onChange={(text) => setAcao_corretiva(text)}
+            />
+          </GridItem>
+        </GridContainer>
+
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
+            <FormLabel component="legend">Efluente Burto</FormLabel>
+            <InputFile
+              label="Anexos"
+              maxFiles={1}
+              onChange={(file) => setEfluente_bruto(file)}
+              accept={'image/jpeg, image/png'}
+            />
+          </GridItem>
+        </GridContainer>
+
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
+            <FormLabel component="legend">Efluente Tratado</FormLabel>
+            <InputFile
+              label="Anexos"
+              maxFiles={1}
+              onChange={(file) => setEfluente_tratado(file)}
+              accept={'image/jpeg, image/png'}
             />
           </GridItem>
         </GridContainer>

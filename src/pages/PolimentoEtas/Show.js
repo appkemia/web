@@ -3,10 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import dig from 'object-dig';
 
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import Link from '@material-ui/core/Link';
 
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/core/styles';
 
 import CardContainer from 'components/Card/CardContainer';
 import GridItem from 'components/Grid/GridItem';
@@ -14,14 +17,44 @@ import GridContainer from 'components/Grid/GridContainer';
 import InputShow from 'components/Input/InputShow';
 import Button from 'components/Button/Button';
 import GridAction from 'components/Grid/GridAction';
+import IconButton from 'components/Button/IconButton';
 
 import api from 'services/api';
 import handlingErros from 'utils/handlingErros';
 import Can from 'contexts/Can';
 
+import { URL } from 'config/uri';
+
+const useStyles = makeStyles(() => ({
+  thumb: {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    margin: 20,
+    marginRight: 8,
+    width: 120,
+    height: 80,
+    padding: 4,
+    boxSizing: 'border-box',
+  },
+  thumbInner: {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden',
+  },
+  img: {
+    display: 'block',
+    width: 'auto',
+    height: '100%',
+  },
+}));
+
 const Show = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const classes = useStyles();
+
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
@@ -149,6 +182,36 @@ const Show = () => {
             />
           </GridItem>
         </GridContainer>
+
+        {data.files &&
+          data.files.map((file) => (
+            <GridContainer key={file.name} direction="row" alignItems="center">
+              <GridItem xs={12} sm={2} md={2} lg={2} xl={2}>
+                <div className={classes.thumb}>
+                  <div className={classes.thumbInner}>
+                    <img
+                      src={`${URL}/files/${file.id}`}
+                      className={classes.img}
+                    />
+                  </div>
+                </div>
+              </GridItem>
+              <GridItem xs={12} sm={6} md={6} lg={6} xl={6}>
+                {file.path}
+                <Link
+                  target="_blank"
+                  rel="noopener"
+                  href={`${URL}/files/${file.id}`}
+                >
+                  <IconButton
+                    tooltip="Remover"
+                    Icon={RemoveRedEyeIcon}
+                    iconColor="green"
+                  />
+                </Link>
+              </GridItem>
+            </GridContainer>
+          ))}
       </CardContainer>
     </>
   );

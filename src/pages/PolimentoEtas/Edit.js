@@ -19,6 +19,7 @@ import GridContainerFooter from 'components/Grid/GridContainerFooter';
 import InputDate from 'components/Input/InputDate';
 import InputShow from 'components/Input/InputShow';
 import InputSelect from 'components/Input/InputSelect';
+import InputFile from 'components/Input/InputFile';
 
 import isPresent from 'utils/isPresent';
 import api from 'services/api';
@@ -57,12 +58,14 @@ const UsuarioEdit = () => {
     setObservacao_caixa_saida_final,
   ] = useState('');
 
+  const [files, setFiles] = useState([]);
+
   const [error, setError] = useState({});
 
   async function onSubmit(event) {
     event.preventDefault();
 
-    const dados = {
+    const body = {
       data: formatDate(data, 'yyyy-MM-dd'),
       vazao,
       ph,
@@ -88,10 +91,20 @@ const UsuarioEdit = () => {
         .required('Por favor selecione a ETA'),
     });
 
-    const validation = await yupValidator(schema, dados);
+    const validation = await yupValidator(schema, body);
 
     setError(validation);
     if (isPresent(validation)) return;
+
+    let dados = new FormData();
+
+    Object.keys(body).forEach((key) => {
+      dados.append(key, body[key]);
+    });
+
+    files.map((file, index) => {
+      dados.append(`image[${index}]`, file);
+    });
 
     setLoading(true);
     try {
@@ -361,6 +374,16 @@ const UsuarioEdit = () => {
               helperText={error.observacao_caixa_saida_final}
               required
               onChange={(text) => setObservacao_caixa_saida_final(text)}
+            />
+          </GridItem>
+        </GridContainer>
+
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12} lg={12} xl={12}>
+            <InputFile
+              label="Anexos"
+              onChange={(files) => setFiles(files)}
+              accept={'image/jpeg, image/png'}
             />
           </GridItem>
         </GridContainer>
