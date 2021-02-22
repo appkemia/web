@@ -16,6 +16,8 @@ export default function defineRulesFor(user) {
   } else if (user?.tipo === 'master') {
     can('manage', 'all');
 
+    can('send_email', 'SendEmails');
+
     can('list', 'Empresas');
     can('select', 'Empresas');
     can('new', 'Empresas');
@@ -144,6 +146,8 @@ export default function defineRulesFor(user) {
     can('show', 'ControlePastilhaCloros');
     can('delete', 'ControlePastilhaCloros');
   } else if (user?.tipo === 'admin') {
+    can('send_email', 'SendEmails');
+
     cannot('list', 'Empresas');
     cannot('select', 'Empresas');
     cannot('new', 'Empresas');
@@ -272,6 +276,9 @@ export default function defineRulesFor(user) {
     can('show', 'ControlePastilhaCloros');
     can('delete', 'ControlePastilhaCloros');
   } else if (user?.tipo === 'operator') {
+
+    cannot('send_email', 'SendEmails');
+
     cannot('list', 'Empresas');
     cannot('select', 'Empresas');
     cannot('new', 'Empresas');

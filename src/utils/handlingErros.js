@@ -20,7 +20,7 @@ const handlingErros = (error) => {
       errorMessages.error = 'Está rota não existe';
     }
     if (status === 500) {
-      toast.error('405');
+      toast.error('Erro interno do servidor');
     }
 
     if (status === 400) {
@@ -56,8 +56,8 @@ const handlingErros = (error) => {
     toast.error('Não há conexeção');
     errorMessages.error = 'Não há conexeção';
   } else {
-    toast.error('Aconhteceu algum error loko fio');
-    errorMessages.error = 'Aconteceu algum erro loko fio';
+    toast.error('Erro interno do servidor');
+    errorMessages.error = 'Erro interno do servidor';
   }
 
   return errorMessages;

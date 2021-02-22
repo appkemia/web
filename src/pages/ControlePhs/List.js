@@ -9,6 +9,7 @@ import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EmailIcon from '@material-ui/icons/Email';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -16,6 +17,7 @@ import TableRow from '@material-ui/core/TableRow';
 import CardContainer from 'components/Card/CardContainer';
 import Button from 'components/Button/Button';
 import ModalDelete from 'components/Modal/ModalDelete';
+import ModalSendEmail from 'components/Modal/ModalSendEmail';
 import GridAction from 'components/Grid/GridAction';
 import Table from 'components/Table/Table';
 import tableStyles from 'components/Table/Table/styles';
@@ -45,6 +47,8 @@ const List = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [deleteData, setDeleteData] = useState(null);
   const [showModalDelete, setShowModalDelete] = useState(false);
+
+  const [showModalEmail, setShowModalEmail] = useState(false);
 
   async function onDelete() {
     setLoadingDelete(true);
@@ -190,6 +194,26 @@ const List = () => {
           );
         })}
       </Table>
+
+      <Can I="send_email" a="SendEmails">
+        {data.length > 0 && (
+          <Button onClick={() => setShowModalEmail(true)} color="secondary">
+            Enviar E-mail
+            <EmailIcon />
+          </Button>
+        )}
+      </Can>
+
+      <ModalSendEmail
+        open={showModalEmail}
+        route="controle-phs"
+        local={local}
+        startDate={startDate}
+        endDate={endDate}
+        onClose={() => {
+          setShowModalEmail(false);
+        }}
+      />
 
       <ModalDelete
         open={showModalDelete}
