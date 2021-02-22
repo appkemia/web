@@ -27,6 +27,7 @@ export default function defineRulesFor(user) {
     can('edit', 'Configuracaos');
     can('show', 'Configuracaos');
 
+    cannot('list', 'TarefasOperador');
     can('list', 'Tarefas');
     can('new', 'Tarefas');
     can('edit', 'Tarefas');
@@ -142,7 +143,7 @@ export default function defineRulesFor(user) {
     can('edit', 'ControlePastilhaCloros');
     can('show', 'ControlePastilhaCloros');
     can('delete', 'ControlePastilhaCloros');
-  } else if (user?.role === 'admin') {
+  } else if (user?.tipo === 'admin') {
     cannot('list', 'Empresas');
     cannot('select', 'Empresas');
     cannot('new', 'Empresas');
@@ -154,6 +155,7 @@ export default function defineRulesFor(user) {
     can('edit', 'Configuracaos');
     can('show', 'Configuracaos');
 
+    cannot('list', 'TarefasOperador');
     can('list', 'Tarefas');
     can('new', 'Tarefas');
     can('edit', 'Tarefas');
@@ -269,7 +271,7 @@ export default function defineRulesFor(user) {
     can('edit', 'ControlePastilhaCloros');
     can('show', 'ControlePastilhaCloros');
     can('delete', 'ControlePastilhaCloros');
-  } else if (user?.role === 'operator') {
+  } else if (user?.tipo === 'operator') {
     cannot('list', 'Empresas');
     cannot('select', 'Empresas');
     cannot('new', 'Empresas');
@@ -281,6 +283,7 @@ export default function defineRulesFor(user) {
     cannot('edit', 'Configuracaos');
     cannot('show', 'Configuracaos');
 
+    can('list', 'TarefasOperador');
     cannot('list', 'Tarefas');
     cannot('new', 'Tarefas');
     cannot('edit', 'Tarefas');

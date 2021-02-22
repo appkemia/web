@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import ListItem from '@material-ui/core/ListItem';
+import MenuIcon from '@material-ui/icons/Menu';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import MenuIcon from '@material-ui/icons/Menu';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Brightness7Icon from "@material-ui/icons/Brightness7";
-import Brightness4Icon from '@material-ui/icons/Brightness4';
+
+import { useAuth } from 'contexts/auth';
+import Can from 'contexts/Can';
 
 import User from './User';
 import Logo from './Logo';
@@ -20,10 +25,17 @@ import Logo from './Logo';
 import useStyles from './styles';
 import items from './routeItems';
 
-const Menu = ({ darkTheme, setDarkTheme, isMobile, drawerOpen, setDrawerOpen }) => {
+const Menu = ({
+  darkTheme,
+  setDarkTheme,
+  isMobile,
+  drawerOpen,
+  setDrawerOpen,
+}) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
   const themeIcon = !darkTheme ? <Brightness4Icon /> : <Brightness7Icon />;
 
   const pathnames = location.pathname.split('/').filter((x) => x);
@@ -66,11 +78,16 @@ const Menu = ({ darkTheme, setDarkTheme, isMobile, drawerOpen, setDrawerOpen }) 
             <div className={classes.grow} />
 
             <IconButton
-            color="inherit"
-            onClick={() => setDarkTheme(!darkTheme)}
-          >
-            {themeIcon}
-          </IconButton>
+              color="inherit"
+              onClick={() => setDarkTheme(!darkTheme)}
+            >
+              {themeIcon}
+            </IconButton>
+
+            <IconButton color="inherit" onClick={() => logout()}>
+              sair
+              <ExitToAppIcon />
+            </IconButton>
 
             <User />
           </Toolbar>
@@ -91,39 +108,40 @@ const Menu = ({ darkTheme, setDarkTheme, isMobile, drawerOpen, setDrawerOpen }) 
 
           {items.map((item) => {
             return (
-              <ListItem
-                key={item.path}
-                button
-                classes={{
-                  selected: classes.rootSelected,
-                }}
-                selected={pathnames[0] === item.root}
-                onClick={() => {
-                  if (isMobile) {
-                    setDrawerOpen(false);
-                  }
-                  navigate(item.path);
-                }}
-              >
-                <ListItemIcon
+              <Can key={item.path} I="list" a={item.can}>
+                <ListItem
+                  button
                   classes={{
-                    root: clsx(
-                      classes.textItem,
-                      pathnames[0] === item.root && classes.textSelected
-                    ),
+                    selected: classes.rootSelected,
+                  }}
+                  selected={pathnames[0] === item.root}
+                  onClick={() => {
+                    if (isMobile) {
+                      setDrawerOpen(false);
+                    }
+                    navigate(item.path);
                   }}
                 >
-                  <item.Icon />
-                </ListItemIcon>
-                <Typography
-                  className={clsx(
-                    classes.textItem,
-                    pathnames[0] === item.root && classes.textSelected
-                  )}
-                >
-                  {item?.name}
-                </Typography>
-              </ListItem>
+                  <ListItemIcon
+                    classes={{
+                      root: clsx(
+                        classes.textItem,
+                        pathnames[0] === item.root && classes.textSelected
+                      ),
+                    }}
+                  >
+                    <item.Icon />
+                  </ListItemIcon>
+                  <Typography
+                    className={clsx(
+                      classes.textItem,
+                      pathnames[0] === item.root && classes.textSelected
+                    )}
+                  >
+                    {item?.name}
+                  </Typography>
+                </ListItem>
+              </Can>
             );
           })}
         </List>

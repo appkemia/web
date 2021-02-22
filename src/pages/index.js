@@ -31,6 +31,7 @@ import TarefaList from 'pages/Tarefas/List';
 import TarefaNew from 'pages/Tarefas/New';
 import TarefaShow from 'pages/Tarefas/Show';
 import TarefaEdit from 'pages/Tarefas/Edit';
+import ListOperadorList from 'pages/Tarefas/ListOperador';
 
 import NotificacaoList from 'pages/Notificacaoes/List';
 
@@ -169,9 +170,10 @@ const Main = ({ user, empresa, local }) => {
 
   return (
     <Routes>
-      <PrivateRoute path="/" action="list" subject="Usuarios">
-        <UsuarioList />
-      </PrivateRoute>
+      <Route
+        path="/"
+        element={user.tipo !== 'operator' ? <UsuarioList /> : <ListOperadorList />}
+      />
 
       <PrivateRoute path="/empresas" action="list" subject="Empresas">
         <EmpresaList />
@@ -207,6 +209,9 @@ const Main = ({ user, empresa, local }) => {
         <ConfiguracaoEdit />
       </PrivateRoute>
 
+      <PrivateRoute path="/tarefas-operador" action="list" subject="TarefasOperador">
+        <ListOperadorList />
+      </PrivateRoute>
       <PrivateRoute path="/tarefas" action="list" subject="Tarefas">
         <TarefaList />
       </PrivateRoute>

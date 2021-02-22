@@ -138,7 +138,7 @@ const New = () => {
       setLoading(false);
 
       toast.success('Salvo com sucesso!');
-      navigate(`/tarefas/show/${response.data.id}`);
+      navigate('/tarefas');
     } catch (error) {
       setLoading(false);
       const validation = handlingErros(error);

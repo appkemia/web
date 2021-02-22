@@ -32,10 +32,15 @@ import {
   controle_pastilha_cloros,
   configuracaos,
   tarefas,
+  tarefas_operador,
   notificaoes,
 } from 'config/routes';
 
 const routes = [
+  {
+    ...tarefas_operador,
+    Icon: EventIcon,
+  },
   {
     ...users,
     Icon: People,

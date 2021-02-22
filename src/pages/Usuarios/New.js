@@ -99,7 +99,7 @@ const UsuarioNew = () => {
       setLoading(false);
 
       toast.success('Sucesso');
-      navigate(`/usuarios/show/${response.id}`);
+      navigate(`/usuarios/show/${response.data.id}`);
     } catch (error) {
       setLoading(false);
       const validation = handlingErros(error);
