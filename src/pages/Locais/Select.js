@@ -26,7 +26,7 @@ const LocalSelect = () => {
 
   async function onSubmit(event) {
     event.preventDefault();
-    navigate('/usuarios');
+    navigate('/');
   }
 
   useEffect(() => {

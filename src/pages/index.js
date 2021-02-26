@@ -11,6 +11,7 @@ import { buildAbilityFor } from 'config/ability';
 
 import Container from 'components/Container';
 import Menu from 'components/Menu/index';
+import Header from 'components/Header/index';
 
 import NotFound from 'pages/NotFound';
 import NotPermissionPage from 'pages/NotPermissionPage';
@@ -151,7 +152,13 @@ const Main = ({ user, empresa, local }) => {
   if (!empresa) {
     return (
       <Routes>
-        <Route path="/empresas/select" element={<EmpresaSelect />} />
+        <PrivateRoute
+          path="/empresas/select"
+          action="select"
+          subject="Empresas"
+        >
+          <EmpresaSelect />
+        </PrivateRoute>
         <Route path="/*" element={<EmpresaSelect />} />
       </Routes>
     );
@@ -160,9 +167,19 @@ const Main = ({ user, empresa, local }) => {
   if (!local) {
     return (
       <Routes>
-        <Route path="/empresas/select" element={<EmpresaSelect />} />
-        <Route path="/locais/select" element={<LocalSelect />} />
-        <Route path="/locais/new" element={<LocalNew />} />
+        <PrivateRoute
+          path="/empresas/select"
+          action="select"
+          subject="Empresas"
+        >
+          <EmpresaSelect />
+        </PrivateRoute>
+        <PrivateRoute path="/locais/select" action="select" subject="Locais">
+          <LocalSelect />
+        </PrivateRoute>
+        <PrivateRoute path="/locais/new" action="new" subject="Locais">
+          <LocalNew />
+        </PrivateRoute>
         <Route path="/*" element={<LocalSelect />} />
       </Routes>
     );
@@ -172,7 +189,9 @@ const Main = ({ user, empresa, local }) => {
     <Routes>
       <Route
         path="/"
-        element={user.tipo !== 'operator' ? <UsuarioList /> : <ListOperadorList />}
+        element={
+          user.tipo === 'operator' ? <ListOperadorList /> : <UsuarioList />
+        }
       />
 
       <PrivateRoute path="/empresas" action="list" subject="Empresas">
@@ -209,7 +228,11 @@ const Main = ({ user, empresa, local }) => {
         <ConfiguracaoEdit />
       </PrivateRoute>
 
-      <PrivateRoute path="/tarefas-operador" action="list" subject="TarefasOperador">
+      <PrivateRoute
+        path="/tarefas-operador"
+        action="list"
+        subject="TarefasOperador"
+      >
         <ListOperadorList />
       </PrivateRoute>
       <PrivateRoute path="/tarefas" action="list" subject="Tarefas">
@@ -702,6 +725,7 @@ const Pages = ({ darkTheme, setDarkTheme }) => {
           )}
         >
           <Container>
+            <Header user={user} local={local} empresa={empresa} />
             <Main user={user} local={local} empresa={empresa} />
           </Container>
         </div>
